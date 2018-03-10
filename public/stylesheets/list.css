@@ -1,0 +1,20 @@
+.affairs{
+  background: #ccc;
+  padding: 10px;
+}
+  
+.affairs__item {
+
+}
+
+.affairs__item-status {
+  margin: 0 10px;
+}
+
+.affairs__item-status.done {
+  color: green;
+}
+
+.affairs__item-status.in-progress {
+  color: yellow;
+}

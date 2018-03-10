@@ -36,8 +36,11 @@ router.get('/api/v1/todos', (req, res, next) => {
       if (err) {
         throw err.stack
       } else {
-        console.log(result.rows[0])
-        return res.json(result.rows[0]);
+        console.log(result.rows)
+        if(result.rows[0] && result.rows.length) {
+          res.render('list', { data: result.rows })
+        }
+        else return res.end("You haven't got any item yet")
       }
     })
   })
@@ -46,6 +49,7 @@ router.get('/api/v1/todos', (req, res, next) => {
 
 router.post('/api/v1/todos', (req, res, next) => {
     // Grab data from http request
+
     const data = {text: req.body.text, complete: req.body.complete};
 
     const text = 'INSERT INTO items(text, complete) VALUES($1, $2) RETURNING *'

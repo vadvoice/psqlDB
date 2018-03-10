@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .affairs
+    h1.affairs__header Items list
+    ol.affairs__item
+      each deal,i in data
+        li #{deal.text}
+          span.affairs__item-id (#{deal.id})
+          span.affairs__item-status(class=deal.complete ? 'done' : 'in-progress') (#{deal.complete})
+    
+

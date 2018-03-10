@@ -49,7 +49,6 @@ router.get('/api/v1/todos', (req, res, next) => {
 
 router.post('/api/v1/todos', (req, res, next) => {
     // Grab data from http request
-
     const data = {text: req.body.text, complete: req.body.complete};
 
     const text = 'INSERT INTO items(text, complete) VALUES($1, $2) RETURNING *'
@@ -64,29 +63,28 @@ router.post('/api/v1/todos', (req, res, next) => {
 
 router.put('/api/v1/todos/:todo_id', (req, res, next) => {
   // Grab data from http request
-  const data = {text: req.body.text, complete: req.body.complete, id: req.id};
+  const data = {text: req.body.text, complete: req.body.complete, id: req.params.todo_id};
 
   const text = 'UPDATE items SET text=($1), complete=($2) WHERE id=($3)'
   const values = [data.text, data.complete, data.id]
-
-  client.query(text, values)
-    .then(res => {
-      console.log('succes update:', res)
+  
+  // check selection
+  client.query('SELECT count(*) FROM items WHERE ID=($1)', [values.id]).then(r => {
+    if (r.rowCount) update()
+    else res.json({
+      message: "You haven't any deal we this id"
     })
-    .catch(e => console.error(e.stack))
+  })
 
-  // then get update date
-  // pool.connect((err, client, done) => {
-  //   if (err) throw err
-  //   client.query('SELECT * FROM items ORDER BY id ASC;', (err, result) => {
-  //     if (err) {
-  //       throw err.stack
-  //     } else {
-  //       console.log(result.rows[0])
-  //       return res.json(result.rows[0]);
-  //     }
-  //   })
-  // })
+  // UPDATE IF ITEM EXIST
+  function update() {
+    client.query(text, values)
+      .then(r => {
+        console.log('succes update:', r)
+        res.json({message: 'Vsjo'})
+      })
+      .catch(e => console.error(e.stack))
+  }
 })
 
 module.exports = router;

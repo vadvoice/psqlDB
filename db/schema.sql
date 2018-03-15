@@ -1,6 +1,8 @@
-CREATE TABLE users (
-    id integer NOT NULL,
-    name varchar(20) NOT NULL,
-    password varchar(20) NOT NULL,
-    start_time timestamp with time zone
+create table users(
+    id bigserial primary key,
+    name varchar(30) not null,
+    email character varying(255),
+    password character varying(255),
+    role_id integer,
+    created_at TIMESTAMP DEFAULT NOW()
 );

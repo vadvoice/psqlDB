@@ -1,9 +1,16 @@
+import authPath from './auth'
+import fs from 'fs';
+import knex from './config';
+
 const express = require('express');
-const router = express.Router();
 const pg = require('pg');
 const path = require('path');
 const os = require('os')
 const { Pool, Client } = require('pg')
+
+const router = express.Router();
+
+router.use('/auth', authPath)
 
 // user info
 const user = os.userInfo().username
@@ -23,10 +30,12 @@ const pool = new Pool({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  knex('items').then(r => {
+    res.render('index', { title: 'Express' });
+  })
 });
 
-router.get('/api/v1/todos', (req, res, next) => {
+router.get('/todos', (req, res, next) => {
   const text = 'SELECT * FROM items ORDER BY id ASC;'
   
   // show table content
@@ -47,7 +56,7 @@ router.get('/api/v1/todos', (req, res, next) => {
 
 });
 
-router.post('/api/v1/todos', (req, res, next) => {
+router.post('/todos', (req, res, next) => {
     // Grab data from http request
     const data = {text: req.body.text, complete: req.body.complete};
 
@@ -61,7 +70,7 @@ router.post('/api/v1/todos', (req, res, next) => {
       .catch(e => console.error(e.stack))
   });
 
-router.put('/api/v1/todos/:todo_id', (req, res, next) => {
+router.put('/todos/:todo_id', (req, res, next) => {
   // Grab data from http request
   const data = {text: req.body.text, complete: req.body.complete, id: req.params.todo_id};
 

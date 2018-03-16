@@ -9,8 +9,6 @@ const envVarsSchema = Joi.object({
   }).unknown()
     .required();
 
-console.log('zzzzz: ', process.env.JWT_SECRET);
-
 const { error, value: envVars } = Joi.validate(process.env, envVarsSchema);
 
 if(error) {

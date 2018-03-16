@@ -1,9 +1,10 @@
+import express from 'express'
 import authPath from './auth'
 import companiesPath from './companies'
+import usersPath from './users'
 import fs from 'fs';
-import knex from './config';
+import knex from '../db/knex';
 
-const express = require('express');
 const pg = require('pg');
 const path = require('path');
 const os = require('os')
@@ -12,7 +13,8 @@ const { Pool, Client } = require('pg')
 const router = express.Router();
 
 router.use('/auth', authPath)
-router.use('/companys', companiesPath)
+router.use('/companies', companiesPath)
+router.use('/users', usersPath)
 
 // user info
 const user = os.userInfo().username

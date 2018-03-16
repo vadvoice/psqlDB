@@ -19,6 +19,8 @@ module.exports = (req, res, next) => {
     if(!userJwt) next(new Error('Unauthorized'))
     console.log('authorization completed');
     next()
+  } else {
+    res.status(400).send('Unauthorized')
   }
 }
 

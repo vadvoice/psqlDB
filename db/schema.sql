@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users(
     name varchar(30) not null,
     email character varying(255),
     password character varying(255),
-    role_id integer,
+    role_id integer DEFAULT 0,
     created_at TIMESTAMP DEFAULT NOW()
 );
 

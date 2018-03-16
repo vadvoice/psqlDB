@@ -1,4 +1,5 @@
 import authPath from './auth'
+import companiesPath from './companies'
 import fs from 'fs';
 import knex from './config';
 
@@ -11,6 +12,7 @@ const { Pool, Client } = require('pg')
 const router = express.Router();
 
 router.use('/auth', authPath)
+router.use('/companys', companiesPath)
 
 // user info
 const user = os.userInfo().username
@@ -25,8 +27,7 @@ client.connect()
 
 const pool = new Pool({
   connectionString: connectionString,
-}
-)
+})
 
 /* GET home page. */
 router.get('/', function(req, res, next) {

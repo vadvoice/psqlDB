@@ -27,8 +27,8 @@ function create(req, res, next) {
       res.end('created')
     })
   }).catch(e => {
-    console.log('time to panic!!!');
-    res.status(500).send(e)
+    console.error('time to panic!!!: ', e);
+    res.status(500).send('something went wrong')
   })
 }
 

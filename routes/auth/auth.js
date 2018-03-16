@@ -12,8 +12,13 @@ const schema = Joi.object().keys({
 
 function auth(req, res, next) {
   // validate after login
-  Joi.validate(req.body, schema)
-
+  const result = Joi.validate(req.body, schema, (err, result) => {
+    if(err) {
+      res.write('are you serious trying hack my service?');
+      throw new Error(err);
+    }
+  })
+  
   knex('users').where({
     email: req.body.email,
   }).first().then(user => {

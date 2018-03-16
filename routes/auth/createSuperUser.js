@@ -5,7 +5,8 @@ function createSuperUser(req, res, next) {
   let params = {"name":"admin","email":"admin@admin.com", "password":"admin", "role_id":"0"}
   
   params.password = hash(params.password)
-  knex('users').insert(params).then(resp => {
+  knex('users').returning('*').insert(params).then(resp => {
+    console.log('done', resp);
     res.json(resp)
   })
   .catch(err => console.error('error message: ', err))

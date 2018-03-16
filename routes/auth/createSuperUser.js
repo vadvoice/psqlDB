@@ -1,5 +1,5 @@
 import { hash } from '../../helpers/hash.halper'
-import knex from '../config'
+import knex from '../../db/knex'
 
 function createSuperUser(req, res, next) {
   let params = {"name":"admin","email":"admin@admin.com", "password":"admin", "role_id":"0"}

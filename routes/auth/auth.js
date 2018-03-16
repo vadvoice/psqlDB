@@ -1,7 +1,7 @@
 
 import Joi from 'joi'
 import jwt from 'jsonwebtoken'
-import knex from '../config'
+import knex from '../../db/knex'
 import { isValidPass } from '../../helpers/hash.halper'
 import config from '../../config';
 
@@ -11,8 +11,9 @@ const schema = Joi.object().keys({
 })
 
 function auth(req, res, next) {
-  // console.log(req.body);
-  // res.end('this is the end')
+  // validate after login
+  Joi.validate(req.body, schema)
+
   knex('users').where({
     email: req.body.email,
   }).first().then(user => {

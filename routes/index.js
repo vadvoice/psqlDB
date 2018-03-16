@@ -2,7 +2,7 @@ import express from 'express'
 import authPath from './auth'
 import usersPath from './users'
 import fs from 'fs';
-import knex from './config';
+import knex from '../db/knex';
 
 const pg = require('pg');
 const path = require('path');

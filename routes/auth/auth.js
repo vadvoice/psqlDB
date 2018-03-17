@@ -22,6 +22,8 @@ function auth(req, res, next) {
   knex('users').where({
     email: req.body.email,
   }).first().then(user => {
+    console.log('asdfsadf', user);
+    
     if(!user) throw new Error('something went wrong...')
     if(isValidPass(user.password, req.body.password)) {
       console.log('hoho');

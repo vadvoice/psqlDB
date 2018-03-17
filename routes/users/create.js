@@ -18,7 +18,8 @@ function create(req, res, next) {
   Joi.validate(req.body, schema, (err, result) => {
     if (err) {
       console.log(err);
-      res.status(400).send(err)
+      err.status = 400
+      next(err)
     }
     console.log('validation complited');
   })
@@ -46,7 +47,8 @@ function create(req, res, next) {
     }
   }).catch(e => {
     console.error('time to panic!!!: ', e);
-    res.status(500).send('something went wrong')
+    e.status = 500
+    next(e)
   })
 }
 

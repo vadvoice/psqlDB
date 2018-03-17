@@ -2,6 +2,7 @@ import express from 'express'
 import knex from '../../db/knex'
 import { hash } from '../../helpers/hash.halper'
 import { roles } from '../../db/enums'
+import { accesscontrol } from '../../middlewares/accesscontrol'
 import Joi from 'joi'
 
 const router = express.Router()

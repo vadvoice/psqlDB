@@ -20,8 +20,7 @@ function list(req, res, next) {
     if (err) {
       throw err.stack
     }
-    console.log(resp);
-    res.end('not ready yet')
+    res.json(resp.rows)
   })
 }
 
